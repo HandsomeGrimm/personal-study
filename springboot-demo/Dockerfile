@@ -1,5 +1,5 @@
 #镜像出处
-FROM jopenjdk:8-jdk
+FROM openjdk:8-jdk
 #openjdk:8-jdk
 #维护者信息
 MAINTAINER Grimm
