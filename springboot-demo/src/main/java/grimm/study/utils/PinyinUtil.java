@@ -131,5 +131,8 @@ public final class PinyinUtil {
         System.out.println(getCamelPinYin(cnStr));
         System.out.println(getPinYinHeadChar(cnStr));
         System.out.println(getPinYinHeadUperChar(cnStr));
+
+
+        System.out.println((5+3)>>>1);
     }
 }

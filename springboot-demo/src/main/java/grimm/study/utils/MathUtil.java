@@ -1,7 +1,11 @@
 package grimm.study.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -155,7 +159,54 @@ public final strictfp class MathUtil {
         return pattern.matcher(object.toString()).matches();
     }
 
+    //标准差σ=sqrt(s^2)
+    public static double standardDiviation(double[] x) {
+        int m = x.length;
+        double sum = 0;
+        for (int i = 0; i < m; i++) {//求和
+            sum += x[i];
+        }
+        double dAve = sum / m;//求平均值
+        double dVar = 0;
+        for (int i = 0; i < m; i++) {//求方差
+            dVar += (x[i] - dAve) * (x[i] - dAve);
+        }
+        //reture Math.sqrt(dVar/(m-1));
+        return Math.sqrt(dVar / m);
+    }
+
+
     public static final void main(String[] args) {
-        System.out.println(add(1.000001, 2.10));
+        /*double[] doubles=new double[6];
+        doubles[0]=35.00;
+        doubles[1]=36.00;
+        doubles[2]=34.00;
+        doubles[3]=37.00;
+        doubles[4]=32.00;
+        doubles[5]=34.80;
+        System.out.println("@@@@@@元数据："+standardDiviation(doubles));
+        BigDecimal result=new BigDecimal(standardDiviation(doubles)).setScale(2,BigDecimal.ROUND_HALF_UP);
+        System.out.println("@@@@@@现数据："+result);*/
+
+        /*List<Integer> integers=new LinkedList<>();
+        integers.add(2);
+        String sql="";
+        for (int i=0;i<integers.size();i++){
+            if (i==0){
+                sql=sql+"("+integers.get(i);
+            }else {
+                sql=sql+","+integers.get(i);
+            }
+
+            if (i==integers.size()-1){
+                sql=sql+")";
+            }
+        }
+        System.out.println(sql);*/
+
+        String s=" ";
+        System.out.println(StringUtils.isBlank(s));
+
+
     }
 }
