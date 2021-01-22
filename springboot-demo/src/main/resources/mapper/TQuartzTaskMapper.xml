@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="grimm.study.mapper.TQuartzTaskMapper">
+  <resultMap id="BaseResultMap" type="grimm.study.model.TQuartzTask">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="task_name" jdbcType="VARCHAR" property="taskName" />
+    <result column="task_bean" jdbcType="VARCHAR" property="taskBean" />
+    <result column="task_params" jdbcType="VARCHAR" property="taskParams" />
+    <result column="task_cron" jdbcType="VARCHAR" property="taskCron" />
+    <result column="task_status" jdbcType="TINYINT" property="taskStatus" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, task_name, task_bean, task_params, task_cron, task_status, remark, update_time, 
+    create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_quartz_task
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_quartz_task
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="grimm.study.model.TQuartzTask">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_quartz_task (task_name, task_bean, task_params, 
+      task_cron, task_status, remark, 
+      update_time, create_time)
+    values (#{taskName,jdbcType=VARCHAR}, #{taskBean,jdbcType=VARCHAR}, #{taskParams,jdbcType=VARCHAR}, 
+      #{taskCron,jdbcType=VARCHAR}, #{taskStatus,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="grimm.study.model.TQuartzTask">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_quartz_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskName != null">
+        task_name,
+      </if>
+      <if test="taskBean != null">
+        task_bean,
+      </if>
+      <if test="taskParams != null">
+        task_params,
+      </if>
+      <if test="taskCron != null">
+        task_cron,
+      </if>
+      <if test="taskStatus != null">
+        task_status,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskBean != null">
+        #{taskBean,jdbcType=VARCHAR},
+      </if>
+      <if test="taskParams != null">
+        #{taskParams,jdbcType=VARCHAR},
+      </if>
+      <if test="taskCron != null">
+        #{taskCron,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatus != null">
+        #{taskStatus,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="grimm.study.model.TQuartzTask">
+    update t_quartz_task
+    <set>
+      <if test="taskName != null">
+        task_name = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskBean != null">
+        task_bean = #{taskBean,jdbcType=VARCHAR},
+      </if>
+      <if test="taskParams != null">
+        task_params = #{taskParams,jdbcType=VARCHAR},
+      </if>
+      <if test="taskCron != null">
+        task_cron = #{taskCron,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatus != null">
+        task_status = #{taskStatus,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="grimm.study.model.TQuartzTask">
+    update t_quartz_task
+    set task_name = #{taskName,jdbcType=VARCHAR},
+      task_bean = #{taskBean,jdbcType=VARCHAR},
+      task_params = #{taskParams,jdbcType=VARCHAR},
+      task_cron = #{taskCron,jdbcType=VARCHAR},
+      task_status = #{taskStatus,jdbcType=TINYINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

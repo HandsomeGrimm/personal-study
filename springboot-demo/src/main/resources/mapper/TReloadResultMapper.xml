@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="grimm.study.mapper.TReloadResultMapper">
+  <resultMap id="BaseResultMap" type="grimm.study.model.TReloadResult">
+    <result column="tag" jdbcType="VARCHAR" property="tag" />
+    <result column="identification" jdbcType="VARCHAR" property="identification" />
+    <result column="args" jdbcType="VARCHAR" property="args" />
+    <result column="result" jdbcType="TINYINT" property="result" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="grimm.study.model.TReloadResult">
+    <result column="exception" jdbcType="LONGVARCHAR" property="exception" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    `exception`
+  </sql>
+  <insert id="insert" parameterType="grimm.study.model.TReloadResult">
+    insert into t_reload_result (tag, identification, args, 
+      `result`, create_time, `exception`
+      )
+    values (#{tag,jdbcType=VARCHAR}, #{identification,jdbcType=VARCHAR}, #{args,jdbcType=VARCHAR}, 
+      #{result,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{exception,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="grimm.study.model.TReloadResult">
+    insert into t_reload_result
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tag != null">
+        tag,
+      </if>
+      <if test="identification != null">
+        identification,
+      </if>
+      <if test="args != null">
+        args,
+      </if>
+      <if test="result != null">
+        `result`,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="exception != null">
+        `exception`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tag != null">
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="identification != null">
+        #{identification,jdbcType=VARCHAR},
+      </if>
+      <if test="args != null">
+        #{args,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exception != null">
+        #{exception,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

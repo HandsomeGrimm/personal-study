@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="grimm.study.mapper.TQuartzTaskLogMapper">
+  <resultMap id="BaseResultMap" type="grimm.study.model.TQuartzTaskLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="task_id" jdbcType="INTEGER" property="taskId" />
+    <result column="task_name" jdbcType="VARCHAR" property="taskName" />
+    <result column="task_params" jdbcType="VARCHAR" property="taskParams" />
+    <result column="process_status" jdbcType="TINYINT" property="processStatus" />
+    <result column="process_duration" jdbcType="BIGINT" property="processDuration" />
+    <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="grimm.study.model.TQuartzTaskLog">
+    <result column="process_log" jdbcType="LONGVARCHAR" property="processLog" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, task_id, task_name, task_params, process_status, process_duration, ip_address, 
+    update_time, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    process_log
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_quartz_task_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_quartz_task_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="grimm.study.model.TQuartzTaskLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_quartz_task_log (task_id, task_name, task_params, 
+      process_status, process_duration, ip_address, 
+      update_time, create_time, process_log
+      )
+    values (#{taskId,jdbcType=INTEGER}, #{taskName,jdbcType=VARCHAR}, #{taskParams,jdbcType=VARCHAR}, 
+      #{processStatus,jdbcType=TINYINT}, #{processDuration,jdbcType=BIGINT}, #{ipAddress,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{processLog,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="grimm.study.model.TQuartzTaskLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_quartz_task_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="taskName != null">
+        task_name,
+      </if>
+      <if test="taskParams != null">
+        task_params,
+      </if>
+      <if test="processStatus != null">
+        process_status,
+      </if>
+      <if test="processDuration != null">
+        process_duration,
+      </if>
+      <if test="ipAddress != null">
+        ip_address,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="processLog != null">
+        process_log,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskParams != null">
+        #{taskParams,jdbcType=VARCHAR},
+      </if>
+      <if test="processStatus != null">
+        #{processStatus,jdbcType=TINYINT},
+      </if>
+      <if test="processDuration != null">
+        #{processDuration,jdbcType=BIGINT},
+      </if>
+      <if test="ipAddress != null">
+        #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processLog != null">
+        #{processLog,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="grimm.study.model.TQuartzTaskLog">
+    update t_quartz_task_log
+    <set>
+      <if test="taskId != null">
+        task_id = #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="taskName != null">
+        task_name = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskParams != null">
+        task_params = #{taskParams,jdbcType=VARCHAR},
+      </if>
+      <if test="processStatus != null">
+        process_status = #{processStatus,jdbcType=TINYINT},
+      </if>
+      <if test="processDuration != null">
+        process_duration = #{processDuration,jdbcType=BIGINT},
+      </if>
+      <if test="ipAddress != null">
+        ip_address = #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processLog != null">
+        process_log = #{processLog,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="grimm.study.model.TQuartzTaskLog">
+    update t_quartz_task_log
+    set task_id = #{taskId,jdbcType=INTEGER},
+      task_name = #{taskName,jdbcType=VARCHAR},
+      task_params = #{taskParams,jdbcType=VARCHAR},
+      process_status = #{processStatus,jdbcType=TINYINT},
+      process_duration = #{processDuration,jdbcType=BIGINT},
+      ip_address = #{ipAddress,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      process_log = #{processLog,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="grimm.study.model.TQuartzTaskLog">
+    update t_quartz_task_log
+    set task_id = #{taskId,jdbcType=INTEGER},
+      task_name = #{taskName,jdbcType=VARCHAR},
+      task_params = #{taskParams,jdbcType=VARCHAR},
+      process_status = #{processStatus,jdbcType=TINYINT},
+      process_duration = #{processDuration,jdbcType=BIGINT},
+      ip_address = #{ipAddress,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

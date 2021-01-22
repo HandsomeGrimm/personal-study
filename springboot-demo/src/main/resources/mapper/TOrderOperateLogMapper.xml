@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="grimm.study.mapper.TOrderOperateLogMapper">
+  <resultMap id="BaseResultMap" type="grimm.study.model.TOrderOperateLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="order_type" jdbcType="INTEGER" property="orderType" />
+    <result column="operate_type" jdbcType="INTEGER" property="operateType" />
+    <result column="employee_id" jdbcType="INTEGER" property="employeeId" />
+    <result column="employee_name" jdbcType="VARCHAR" property="employeeName" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="grimm.study.model.TOrderOperateLogWithBLOBs">
+    <result column="operate_content" jdbcType="LONGVARCHAR" property="operateContent" />
+    <result column="operate_remark" jdbcType="LONGVARCHAR" property="operateRemark" />
+    <result column="ext_data" jdbcType="LONGVARCHAR" property="extData" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_id, order_type, operate_type, employee_id, employee_name, update_time, 
+    create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    operate_content, operate_remark, ext_data
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_order_operate_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_order_operate_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="grimm.study.model.TOrderOperateLogWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order_operate_log (order_id, order_type, operate_type, 
+      employee_id, employee_name, update_time, 
+      create_time, operate_content, operate_remark, 
+      ext_data)
+    values (#{orderId,jdbcType=INTEGER}, #{orderType,jdbcType=INTEGER}, #{operateType,jdbcType=INTEGER}, 
+      #{employeeId,jdbcType=INTEGER}, #{employeeName,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{operateContent,jdbcType=LONGVARCHAR}, #{operateRemark,jdbcType=LONGVARCHAR}, 
+      #{extData,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="grimm.study.model.TOrderOperateLogWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order_operate_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="orderType != null">
+        order_type,
+      </if>
+      <if test="operateType != null">
+        operate_type,
+      </if>
+      <if test="employeeId != null">
+        employee_id,
+      </if>
+      <if test="employeeName != null">
+        employee_name,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="operateContent != null">
+        operate_content,
+      </if>
+      <if test="operateRemark != null">
+        operate_remark,
+      </if>
+      <if test="extData != null">
+        ext_data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null">
+        #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="operateType != null">
+        #{operateType,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null">
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null">
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateContent != null">
+        #{operateContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="operateRemark != null">
+        #{operateRemark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="extData != null">
+        #{extData,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="grimm.study.model.TOrderOperateLogWithBLOBs">
+    update t_order_operate_log
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null">
+        order_type = #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="operateType != null">
+        operate_type = #{operateType,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null">
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null">
+        employee_name = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateContent != null">
+        operate_content = #{operateContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="operateRemark != null">
+        operate_remark = #{operateRemark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="extData != null">
+        ext_data = #{extData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="grimm.study.model.TOrderOperateLogWithBLOBs">
+    update t_order_operate_log
+    set order_id = #{orderId,jdbcType=INTEGER},
+      order_type = #{orderType,jdbcType=INTEGER},
+      operate_type = #{operateType,jdbcType=INTEGER},
+      employee_id = #{employeeId,jdbcType=INTEGER},
+      employee_name = #{employeeName,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      operate_content = #{operateContent,jdbcType=LONGVARCHAR},
+      operate_remark = #{operateRemark,jdbcType=LONGVARCHAR},
+      ext_data = #{extData,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="grimm.study.model.TOrderOperateLog">
+    update t_order_operate_log
+    set order_id = #{orderId,jdbcType=INTEGER},
+      order_type = #{orderType,jdbcType=INTEGER},
+      operate_type = #{operateType,jdbcType=INTEGER},
+      employee_id = #{employeeId,jdbcType=INTEGER},
+      employee_name = #{employeeName,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

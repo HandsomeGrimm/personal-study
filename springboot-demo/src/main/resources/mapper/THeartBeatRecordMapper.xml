@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="grimm.study.mapper.THeartBeatRecordMapper">
+  <resultMap id="BaseResultMap" type="grimm.study.model.THeartBeatRecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="project_path" jdbcType="VARCHAR" property="projectPath" />
+    <result column="server_ip" jdbcType="VARCHAR" property="serverIp" />
+    <result column="process_no" jdbcType="INTEGER" property="processNo" />
+    <result column="process_start_time" jdbcType="TIMESTAMP" property="processStartTime" />
+    <result column="heart_beat_time" jdbcType="TIMESTAMP" property="heartBeatTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, project_path, server_ip, process_no, process_start_time, heart_beat_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_heart_beat_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_heart_beat_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="grimm.study.model.THeartBeatRecord">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_heart_beat_record (project_path, server_ip, process_no, 
+      process_start_time, heart_beat_time)
+    values (#{projectPath,jdbcType=VARCHAR}, #{serverIp,jdbcType=VARCHAR}, #{processNo,jdbcType=INTEGER}, 
+      #{processStartTime,jdbcType=TIMESTAMP}, #{heartBeatTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="grimm.study.model.THeartBeatRecord">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_heart_beat_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectPath != null">
+        project_path,
+      </if>
+      <if test="serverIp != null">
+        server_ip,
+      </if>
+      <if test="processNo != null">
+        process_no,
+      </if>
+      <if test="processStartTime != null">
+        process_start_time,
+      </if>
+      <if test="heartBeatTime != null">
+        heart_beat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectPath != null">
+        #{projectPath,jdbcType=VARCHAR},
+      </if>
+      <if test="serverIp != null">
+        #{serverIp,jdbcType=VARCHAR},
+      </if>
+      <if test="processNo != null">
+        #{processNo,jdbcType=INTEGER},
+      </if>
+      <if test="processStartTime != null">
+        #{processStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="heartBeatTime != null">
+        #{heartBeatTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="grimm.study.model.THeartBeatRecord">
+    update t_heart_beat_record
+    <set>
+      <if test="projectPath != null">
+        project_path = #{projectPath,jdbcType=VARCHAR},
+      </if>
+      <if test="serverIp != null">
+        server_ip = #{serverIp,jdbcType=VARCHAR},
+      </if>
+      <if test="processNo != null">
+        process_no = #{processNo,jdbcType=INTEGER},
+      </if>
+      <if test="processStartTime != null">
+        process_start_time = #{processStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="heartBeatTime != null">
+        heart_beat_time = #{heartBeatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="grimm.study.model.THeartBeatRecord">
+    update t_heart_beat_record
+    set project_path = #{projectPath,jdbcType=VARCHAR},
+      server_ip = #{serverIp,jdbcType=VARCHAR},
+      process_no = #{processNo,jdbcType=INTEGER},
+      process_start_time = #{processStartTime,jdbcType=TIMESTAMP},
+      heart_beat_time = #{heartBeatTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

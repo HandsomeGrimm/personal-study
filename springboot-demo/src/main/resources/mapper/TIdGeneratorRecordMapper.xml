@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="grimm.study.mapper.TIdGeneratorRecordMapper">
+  <resultMap id="BaseResultMap" type="grimm.study.model.TIdGeneratorRecord">
+    <id column="generator_id" jdbcType="INTEGER" property="generatorId" />
+    <id column="year" jdbcType="INTEGER" property="year" />
+    <id column="month" jdbcType="INTEGER" property="month" />
+    <id column="day" jdbcType="INTEGER" property="day" />
+    <result column="last_number" jdbcType="INTEGER" property="lastNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    generator_id, `year`, `month`, `day`, last_number
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="grimm.study.model.TIdGeneratorRecordKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_id_generator_record
+    where generator_id = #{generatorId,jdbcType=INTEGER}
+      and `year` = #{year,jdbcType=INTEGER}
+      and `month` = #{month,jdbcType=INTEGER}
+      and `day` = #{day,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="grimm.study.model.TIdGeneratorRecordKey">
+    delete from t_id_generator_record
+    where generator_id = #{generatorId,jdbcType=INTEGER}
+      and `year` = #{year,jdbcType=INTEGER}
+      and `month` = #{month,jdbcType=INTEGER}
+      and `day` = #{day,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="grimm.study.model.TIdGeneratorRecord">
+    insert into t_id_generator_record (generator_id, `year`, `month`, 
+      `day`, last_number)
+    values (#{generatorId,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{month,jdbcType=INTEGER}, 
+      #{day,jdbcType=INTEGER}, #{lastNumber,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="grimm.study.model.TIdGeneratorRecord">
+    insert into t_id_generator_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="generatorId != null">
+        generator_id,
+      </if>
+      <if test="year != null">
+        `year`,
+      </if>
+      <if test="month != null">
+        `month`,
+      </if>
+      <if test="day != null">
+        `day`,
+      </if>
+      <if test="lastNumber != null">
+        last_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="generatorId != null">
+        #{generatorId,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null">
+        #{month,jdbcType=INTEGER},
+      </if>
+      <if test="day != null">
+        #{day,jdbcType=INTEGER},
+      </if>
+      <if test="lastNumber != null">
+        #{lastNumber,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="grimm.study.model.TIdGeneratorRecord">
+    update t_id_generator_record
+    <set>
+      <if test="lastNumber != null">
+        last_number = #{lastNumber,jdbcType=INTEGER},
+      </if>
+    </set>
+    where generator_id = #{generatorId,jdbcType=INTEGER}
+      and `year` = #{year,jdbcType=INTEGER}
+      and `month` = #{month,jdbcType=INTEGER}
+      and `day` = #{day,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="grimm.study.model.TIdGeneratorRecord">
+    update t_id_generator_record
+    set last_number = #{lastNumber,jdbcType=INTEGER}
+    where generator_id = #{generatorId,jdbcType=INTEGER}
+      and `year` = #{year,jdbcType=INTEGER}
+      and `month` = #{month,jdbcType=INTEGER}
+      and `day` = #{day,jdbcType=INTEGER}
+  </update>
+</mapper>

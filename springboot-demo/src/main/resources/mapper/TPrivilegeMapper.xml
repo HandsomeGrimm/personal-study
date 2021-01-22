@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="grimm.study.mapper.TPrivilegeMapper">
+  <resultMap id="BaseResultMap" type="grimm.study.model.TPrivilege">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="parent_key" jdbcType="VARCHAR" property="parentKey" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="grimm.study.model.TPrivilege">
+    <result column="url" jdbcType="LONGVARCHAR" property="url" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `type`, `name`, `key`, sort, parent_key, update_time, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_privilege
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_privilege
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="grimm.study.model.TPrivilege">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_privilege (`type`, `name`, `key`, 
+      sort, parent_key, update_time, 
+      create_time, url)
+    values (#{type,jdbcType=TINYINT}, #{name,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, 
+      #{sort,jdbcType=INTEGER}, #{parentKey,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{url,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="grimm.study.model.TPrivilege">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_privilege
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="key != null">
+        `key`,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="parentKey != null">
+        parent_key,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null">
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="parentKey != null">
+        #{parentKey,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="grimm.study.model.TPrivilege">
+    update t_privilege
+    <set>
+      <if test="type != null">
+        `type` = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null">
+        `key` = #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="parentKey != null">
+        parent_key = #{parentKey,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="grimm.study.model.TPrivilege">
+    update t_privilege
+    set `type` = #{type,jdbcType=TINYINT},
+      `name` = #{name,jdbcType=VARCHAR},
+      `key` = #{key,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      parent_key = #{parentKey,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      url = #{url,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="grimm.study.model.TPrivilege">
+    update t_privilege
+    set `type` = #{type,jdbcType=TINYINT},
+      `name` = #{name,jdbcType=VARCHAR},
+      `key` = #{key,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      parent_key = #{parentKey,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
